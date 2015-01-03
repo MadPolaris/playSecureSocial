@@ -1,7 +1,7 @@
 @import scala.collection.immutable.List
 @import imadz.model.gen.tables.pojos.Data
 
-@(datas: List[Data])
+@(datas: List[Data])(implicit request: RequestHeader, lang: Lang, env:securesocial.core.RuntimeEnvironment[_])
 
 @main("Welcome to PlayJooq Demo") {
 

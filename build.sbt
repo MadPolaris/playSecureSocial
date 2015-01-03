@@ -58,7 +58,7 @@ jooqOptions := Seq(
   "generator.database.name" -> "org.jooq.util.mysql.MySQLDatabase",
   "generator.database.inputSchema" -> "secure_social",
   "generator.target.packageName" -> "imadz.model.gen",
-  "generator.generate.pojos" -> "false",
+  "generator.generate.pojos" -> "true",
   "generator.generate.daos" -> "false",
   "generator.generate.jpaAnnotations" -> "true",
   "generator.generate.validationAnnotations" -> "false",

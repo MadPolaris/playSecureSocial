@@ -49,3 +49,5 @@ GET         /assets/securesocial/*file         securesocial.controllers.Assets.a
 # DEMO
 GET         /                                  @controllers.Application.index
 GET         /only-twitter                      @controllers.Application.onlyTwitter
+
+GET         /data                              @controllers.DataController.list
