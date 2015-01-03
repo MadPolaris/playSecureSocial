@@ -2,26 +2,29 @@
  * Created by Scala on 14-8-31.
  */
 
+import java.lang.reflect.Constructor
+
+import imadz.model.gen.tables.pojos.User
 import models.DemoUser
 import play.api._
 import play.api.data.Form
 import play.api.i18n.Lang
 import play.api.mvc.RequestHeader
 import play.twirl.api.{Html, Txt}
-import securesocial.controllers.{RegistrationInfo, ViewTemplates, MailTemplates}
+import securesocial.controllers.{MailTemplates, RegistrationInfo, ViewTemplates}
 import securesocial.core.providers._
 import securesocial.core.{BasicProfile, RuntimeEnvironment}
-import services.DemoUserService
+import services.PersistedUserService
+
 import scala.collection.immutable.ListMap
-import java.lang.reflect.Constructor
 
 object Global extends GlobalSettings {
 
   /**
    * Demo application's custom Runtime Environment
    */
-  object DemoRuntimeEnvironment extends RuntimeEnvironment.Default[DemoUser] {
-    override lazy val userService: DemoUserService = new DemoUserService
+  object DemoRuntimeEnvironment extends RuntimeEnvironment.Default[User] {
+    override lazy val userService = new PersistedUserService
 
     override lazy val mailTemplates: MailTemplates = new MailTemplates.Default(this) {
       override def getSignUpEmail(token: String)(implicit request: RequestHeader, lang: Lang): (Option[Txt], Option[Html]) =
@@ -50,7 +53,7 @@ object Global extends GlobalSettings {
       include(new GoogleProvider(routes, cacheService, oauth2ClientFor(GoogleProvider.Google))),
       include(new LinkedInProvider(routes, cacheService, oauth1ClientFor(LinkedInProvider.LinkedIn))),
       include(new TwitterProvider(routes, cacheService, oauth1ClientFor(TwitterProvider.Twitter))),
-      include(new UsernamePasswordProvider[DemoUser](userService, None, viewTemplates, passwordHashers))
+      include(new UsernamePasswordProvider[User](userService, None, viewTemplates, passwordHashers))
     )
   }
 

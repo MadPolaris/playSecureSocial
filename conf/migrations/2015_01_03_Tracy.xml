@@ -14,6 +14,15 @@
             </column>
             -->
         </createTable>
+        <createTable tableName="email_token">
+            <column name="uuid" type="BINARY(128)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="email" type="VARCHAR(200)"></column>
+            <column name="creation_time" type="DATETIME"></column>
+            <column name="expiration_time" type="DATETIME"></column>
+            <column name="sign_up" type="BOOLEAN"></column>
+        </createTable>
         <createTable tableName="userprofile">
             <column name="id" autoIncrement="true" type="INT(11)">
                 <constraints primaryKey="true"/>
