@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="Tracy" id="create user table">
+        <createTable tableName="user">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true"/>
+            </column>
+            <!--
+            <column name="name" type="VARCHAR(100)"></column>
+            <column name="email" type="VARCHAR(200)">
+                <constraints unique="true"/>
+            </column>
+            -->
+        </createTable>
+        <createTable tableName="userprofile">
+            <column name="id" autoIncrement="true" type="INT(11)">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="user_id" type="INT(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="logical_user_id" type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(100)"></column>
+            <column name="last_name" type="VARCHAR(100)"></column>
+            <column name="full_name" type="VARCHAR(200)"></column>
+            <column name="email" type="VARCHAR(200)"></column>
+            <column name="avatar_url" type="VARCHAR(255)"></column>
+            <column name="auth_method" type="VARCHAR(255)" remarks="oauth1, oauth2, openId, user-password"></column>
+            <column name="o_auth1_token" type="VARCHAR(255)" remarks="token:secret"></column>
+            <column name="o_auth1_secret" type="VARCHAR(255)" remarks="token:secret"></column>
+            <column name="o_auth2_access_token" type="VARCHAR(255)" remarks="the access token"></column>
+            <column name="o_auth2_token_type" type="VARCHAR(255)" remarks="the token type"></column>
+            <column name="o_auth2_expires_in" type="INT(11)"
+                    remarks="the number of seconds before token expires"></column>
+            <column name="o_auth2_refresh_token" type="VARCHAR(255)"></column>
+            <column name="passowrd_hasher" type="VARCHAR(255)"
+                    remarks="the id of the harsher used to hash this password"></column>
+            <column name="passowrd_hashed" type="VARCHAR(255)" remarks="the hashed password"></column>
+            <column name="passowrd_salt" type="VARCHAR(255)" remarks="the optional salt used when hashing"></column>
+            <column name="provider_id" type="VARCHAR(200)" remarks="userpass, facebook, and etc"></column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="user"/>
+            <dropTable tableName="userprofile"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>
